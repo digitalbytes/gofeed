@@ -80,7 +80,9 @@ func parseExtensionElement(p *xpp.XMLPullParser) (e ext.Extension, err error) {
 
 			e.Children[child.Name] = append(e.Children[child.Name], child)
 		} else if tok == xpp.Text {
-			e.Value = strings.TrimSpace(p.Text)
+			if s := strings.TrimSpace(p.Text); s != "" {
+				e.Value = e.Value + " " + s
+			}
 		}
 	}
 
